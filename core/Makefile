@@ -147,7 +147,7 @@ $(INSTALLED_BUILD_PROP_TARGET): $(BUILDINFO_SH) $(INTERNAL_BUILD_ID_MAKEFILE) $(
 	@mkdir -p $(dir $@)
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_DEVICE="$(TARGET_DEVICE)" \
-			PRODUCT_NAME="$(PRODUCT_DEVICE)" \
+			PRODUCT_NAME="$(TARGET_PRODUCT)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LANGUAGE="$(call default-locale-language,$(PRODUCT_LOCALES))" \
 			PRODUCT_DEFAULT_REGION="$(call default-locale-region,$(PRODUCT_LOCALES))" \
@@ -1137,10 +1137,12 @@ ifneq ($(recovery_fstab),)
 # -----------------------------------------------------------------
 # OTA update package
 
-name := Crossbones-$(PRODUCT_NAME)-$(BUILD_ID)-$(BUILD_VERSION)
+#name := Crossbones-$(PRODUCT_DEVICE)-$(BUILD_ID)-$(BUILD_VERSION)
+name := $(filter ro.build.romversion=%,$(PRODUCT_PROPERTY_OVERRIDES))
 ifeq ($(TARGET_BUILD_TYPE),debug)
   name := $(name)_debug
 endif
+
 #name := $(name)-ota-$(FILE_NAME_TAG)
 
 INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
