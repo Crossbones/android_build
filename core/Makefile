@@ -1137,15 +1137,14 @@ ifneq ($(recovery_fstab),)
 # -----------------------------------------------------------------
 # OTA update package
 
-#ifeq ($(TARGET_PRODUCT),crossbones_crespo4g)
-    name := $(PRODUCT_PROPERTY_OVERRIDES)
-#else
-#    name := $(TARGET_PRODUCT)-ota-$(FILE_NAME_TAG)
-#endif
+name := Crossbones-$(TARGET_DEVICE)-$(BUILD_ID)-$(BUILD_VERSION)
+#name := $(PRODUCT_PROPERTY_OVERRIDES)
 
 ifeq ($(TARGET_BUILD_TYPE),debug)
   name := $(name)_debug
 endif
+
+#name := $(name)-ota-$(FILE_NAME_TAG)
 
 INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
 
