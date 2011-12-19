@@ -1137,7 +1137,7 @@ ifneq ($(recovery_fstab),)
 # -----------------------------------------------------------------
 # OTA update package
 
-ifeq ($(TARGET_PRODUCT),$(wildcard crossbones*))
+ifeq (($(filter crossbones%),$(TARGET_PRODUCT)),crossbones)
     name := $(PRODUCT_PROPERTY_OVERRIDES)
 else
     name := $(TARGET_PRODUCT)-ota-$(FILE_NAME_TAG)
