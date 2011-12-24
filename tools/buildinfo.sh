@@ -9,6 +9,7 @@ echo "ro.build.version.incremental=$BUILD_NUMBER"
 echo "ro.build.version.sdk=$PLATFORM_SDK_VERSION"
 echo "ro.build.version.codename=$PLATFORM_VERSION_CODENAME"
 echo "ro.build.version.release=$PLATFORM_VERSION"
+echo "ro.build.romversion=$ROM_VERSION"
 echo "ro.build.date=`date`"
 echo "ro.build.date.utc=`date +%s`"
 echo "ro.build.type=$TARGET_BUILD_TYPE"
@@ -34,8 +35,8 @@ fi
 echo "ro.wifi.channels=$PRODUCT_DEFAULT_WIFI_CHANNELS"
 echo "ro.board.platform=$TARGET_BOARD_PLATFORM"
 
-echo "# ro.build.product is obsolete; use ro.product.device"
-echo "ro.build.product=$TARGET_DEVICE"
+#echo "# ro.build.product is obsolete; use ro.product.device"
+#echo "ro.build.product=$TARGET_DEVICE"
 
 echo "# Do not try to parse ro.build.description or .fingerprint"
 echo "ro.build.description=$PRIVATE_BUILD_DESC"
