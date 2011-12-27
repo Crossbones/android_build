@@ -1,5 +1,8 @@
+
 if [ "x$ANDROID_JAVA_HOME" != x ] && [ -e "$ANDROID_JAVA_HOME/lib/tools.jar" ] ; then
     echo $ANDROID_JAVA_HOME/lib/tools.jar
+elif [ "x$ANDROID_JAVA_HOME" == x ] && [ "x$JAVA_HOME" != x ] && [ -e "$JAVA_HOME/lib/tools.jar" ] ; then
+    echo $JAVA_HOME/lib/tools.jar
 else
     JAVAC=$(which javac)
     if [ -z "$JAVAC" ] ; then
