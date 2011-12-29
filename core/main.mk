@@ -42,7 +42,7 @@ ifeq (0,$(shell expr $$(echo $(MAKE_VERSION) | sed "s/[^0-9\.].*//") = 3.81))
 $(warning ********************************************************************************)
 $(warning *  You are using version $(MAKE_VERSION) of make.)
 $(warning *  Android is tested to build with version 3.81.)
-$(warning *  Building with your version of make may result in errors.)
+$(warning *  Building with $(MAKE_VERSION) of make may result in errors.)
 $(warning *  see http://source.android.com/source/download.html)
 $(warning ********************************************************************************)
 endif
