@@ -1137,8 +1137,7 @@ ifneq ($(recovery_fstab),)
 # -----------------------------------------------------------------
 # OTA update package
 
-name := Crossbones-$(TARGET_DEVICE)-$(BUILD_ID)-$(BUILD_VERSION)
-#name := $(PRODUCT_PROPERTY_OVERRIDES)
+name := Crossbones-$(BUILD_VERSION)-$(TARGET_DEVICE)-$(BUILD_ID)
 
 ifeq ($(TARGET_BUILD_TYPE),debug)
   name := $(name)_debug
