@@ -456,14 +456,14 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.1, 0)
+  script.Print("Crossbones ROM successfully installed")
+  script.Print("-------------------------------------)"
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
     script.AppendExtra(OPTIONS.extra_script)
 
   script.UnmountAll()
-  script.Print("Crossbones ROM successfully installed")
-  script.Print("-------------------------------------)"
   script.AddToZip(input_zip, output_zip)
   WriteMetadata(metadata, output_zip)
 
