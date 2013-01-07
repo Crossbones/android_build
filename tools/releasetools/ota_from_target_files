@@ -55,6 +55,7 @@ Usage:  ota_from_target_files [flags] input_target_files output_ota_package
 """
 
 import sys
+import os
 
 if sys.hexversion < 0x02040000:
   print >> sys.stderr, "Python 2.4 or newer is required."
@@ -302,6 +303,13 @@ def SignOutput(temp_zip_name, output_zip_name):
   common.SignFile(temp_zip_name, output_zip_name, OPTIONS.package_key, pw,
                   whole_file=True)
 
+  ########## Printing of md5sum ##########
+  print "############ md5sum ############\n"
+  os.system("md5sum " + output_zip_name + " > " + output_zip_name + ".md5sum")
+  os.system("cat " + output_zip_name + ".md5sum")
+  print "\n################################"
+  os.system("touch " + output_zip_name.replace(".zip", ".log"))
+
 
 def AppendAssertions(script, info_dict):
   device = GetBuildProp("ro.product.device", info_dict)
@@ -396,16 +404,20 @@ def WriteFullOTAPackage(input_zip, output_zip):
   script.ShowProgress(0.5, 0)
 
   if OPTIONS.wipe_user_data:
+    script.Print("Wiping user data")
     script.FormatPartition("/data")
 
   if "selinux_fc" in OPTIONS.info_dict:
     WritePolicyConfig(OPTIONS.info_dict["selinux_fc"], output_zip)
 
+  script.Print("Formatting system")
   script.FormatPartition("/system")
   script.Mount("/system")
   #script.UnpackPackageDir("recovery", "/system")
+  script.Print("Installing Crossbones ROM")
   script.UnpackPackageDir("system", "/system")
 
+  script.Print("Creating symlinks")
   symlinks = CopySystemFiles(input_zip, output_zip)
   script.MakeSymlinks(symlinks)
 
@@ -427,6 +439,8 @@ def WriteFullOTAPackage(input_zip, output_zip):
 
   script.ShowProgress(0.1, 0)
   device_specific.FullOTA_InstallEnd()
+  script.Print("Crossbones ROM successfully installed")
+  script.Print("------------------------------------------------")
 
   if OPTIONS.extra_script is not None:
     script.AppendExtra(OPTIONS.extra_script)
